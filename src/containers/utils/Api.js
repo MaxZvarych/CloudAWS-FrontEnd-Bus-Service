@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/dev/bus";
+const baseURL =
+  "https://aj0vas3096.execute-api.us-east-2.amazonaws.com/dev/bus";
 
 export const getAllBuses = async () => {
   try {
