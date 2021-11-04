@@ -14,8 +14,14 @@ export const getAllBuses = async () => {
 };
 
 export const postBus = async (body) => {
+  // const json = JSON.stringify(body);
   try {
-    let responseData = await axios.post(baseURL, body);
+    let responseData = await axios.post(baseURL, body, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
     console.log(responseData);
     return responseData.data;
   } catch {
