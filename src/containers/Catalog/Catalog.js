@@ -19,7 +19,24 @@ const Catalog = () => {
   const [type, setType] = useState("own");
   const [capacity, setCapacity] = useState(50);
   const [run, setRun] = useState(50000);
-  const [sensorsData, setSensorsData] = useState([]);
+  const [sensorsData, setSensorsData] = useState([
+    {
+      name: "initial",
+      data: "initial",
+    },
+    {
+      name: "initial",
+      data: "initial",
+    },
+    {
+      name: "initial",
+      data: "initial",
+    },
+    {
+      name: "initial",
+      data: "initial",
+    },
+  ]);
   useEffect(() => {
     if (securities.length == 0) {
       getAllBuses().then((res) => {
