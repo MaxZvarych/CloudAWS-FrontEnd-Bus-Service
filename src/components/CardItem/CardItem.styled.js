@@ -3,6 +3,7 @@ import { Card } from "antd";
 
 export const Footer = styled.div`
   display: flex;
+  flex-direction: column;
   margin-top: 20px;
   justify-content: center;
 `;

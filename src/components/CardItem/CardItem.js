@@ -18,6 +18,7 @@ const CardItem = ({
   capacity = 50,
   run = 30000,
   producer = "GE",
+  additional_prop = null,
   id,
 }) => {
   let history = useHistory();
@@ -52,8 +53,17 @@ const CardItem = ({
             Capacity is:{capacity} <br /> Bus' run:
             {run} <br /> Bus' producer:
             {producer} <br />
+            {run} <br />
             Bus' number: ${id}
           </p>
+          {additional_prop ? (
+            <p style={{ fontWeight: "bold", fontSize: "16px" }}>
+              Bus' {additional_prop.name} is:
+              {additional_prop.data}
+            </p>
+          ) : (
+            <></>
+          )}
         </Footer>
       </CardStyled>
     </ItemWrapper>

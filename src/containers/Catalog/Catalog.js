@@ -1,16 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Wrapper,
   CardWrapper,
-  FilterBarWrapper,
-  SearchMenu,
-  InputStyled,
   AddBusWrapper,
   FormWrapper,
 } from "./Catalog.styled";
 import CardItem from "../../components/CardItem/CardItem";
 import "antd/dist/antd.css";
-import { getAllBuses, postBus } from "../utils/Api";
+import { getAllBuses, postBus, getAllSensorsData } from "../utils/Api";
 import LoadElement from "../../components/loading/LoadElement";
 
 const Catalog = () => {
@@ -22,6 +19,7 @@ const Catalog = () => {
   const [type, setType] = useState("own");
   const [capacity, setCapacity] = useState(50);
   const [run, setRun] = useState(50000);
+  const [sensorsData, setSensorsData] = useState([]);
   useEffect(() => {
     if (securities.length == 0) {
       getAllBuses().then((res) => {
@@ -58,21 +56,54 @@ const Catalog = () => {
     );
   }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      async function getData() {
+        let data = await getAllSensorsData();
+        // console.log("Updated sensors data to:", data);
+        setSensorsData(data.data);
+      }
+      getData();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Wrapper>
       {securities.length !== 0 ? (
         <>
           <CardWrapper>
-            {securities.map(({ type, age, capacity, run, producer, id }) => (
-              <CardItem
-                type={type}
-                age={age}
-                capacity={capacity}
-                id={id}
-                run={run}
-                producer={producer}
-              />
-            ))}
+            {securities.map(
+              ({ type, age, capacity, run, producer, id }, index) => {
+                console.log(sensorsData);
+                return index === 0 ||
+                  index === 1 ||
+                  index === 2 ||
+                  index === 3 ? (
+                  <CardItem
+                    type={type}
+                    age={age}
+                    capacity={capacity}
+                    id={id}
+                    run={run}
+                    producer={producer}
+                    additional_prop={{
+                      name: sensorsData[index].sensor_name,
+                      data: sensorsData[index].sensor_data,
+                    }}
+                  />
+                ) : (
+                  <CardItem
+                    type={type}
+                    age={age}
+                    capacity={capacity}
+                    id={id}
+                    run={run}
+                    producer={producer}
+                  />
+                );
+              }
+            )}
           </CardWrapper>
           <AddBusWrapper>
             {addBusState === "Add new Bus" ? (
@@ -129,9 +160,6 @@ const Catalog = () => {
                     <option value='private'>private</option>
                   </select>
                   <button type='submit'>Submit</button>
-                  <h1>
-                    Kakawka {age} {type} {producer} {run} {capacity}{" "}
-                  </h1>
                 </form>
               </FormWrapper>
             )}
