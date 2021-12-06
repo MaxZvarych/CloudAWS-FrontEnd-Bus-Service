@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-react-app-deployment
+  namespace: my-react-app
+  labels:
+    app: react-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+    spec:
+      containers:
+      - name: react-app
+        image: masyanya/reactimage
+        ports:
+          - containerPort: 3000
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits: 
+            cpu: 1000m 
+            memory: 1000Mi
+

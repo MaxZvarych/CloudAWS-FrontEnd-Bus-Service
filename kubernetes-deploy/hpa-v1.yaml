@@ -1,0 +1,33 @@
+# HPA Logic goes here
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-react-app-deployment
+  namespace: my-react-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-react-app-deployment
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 10
+# status:
+#   observedGeneration: 1
+#   lastScaleTime: <some-time>
+#   currentReplicas: 1
+#   desiredReplicas: 1
+#   currentMetrics:
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       current:
+#         averageUtilization: 0
+#         averageValue: 0
