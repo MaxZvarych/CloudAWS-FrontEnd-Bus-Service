@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const baseURL =
-  "https://aj0vas3096.execute-api.us-east-2.amazonaws.com/dev/bus";
+  "http://a9b41ad67318c4b8c8e356dc2ef6a97a-1329213901.us-east-2.elb.amazonaws.com:3300/dev/bus";
 const sensorDataURL =
-  "https://aj0vas3096.execute-api.us-east-2.amazonaws.com/dev/sensordata";
+  "http://a9b41ad67318c4b8c8e356dc2ef6a97a-1329213901.us-east-2.elb.amazonaws.com:3300/dev/sensordata";
 
 export const getAllBuses = async () => {
   try {
